@@ -7,27 +7,31 @@ import { useState } from 'react'
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const [selectedDocument, setSelectedDocument] = useState<string | null>(null)
+  const [selectedDocument, setSelectedDocument] = useState<{
+    id: string;
+    name: string;
+    url: string;
+  } | null>(null)
 
   return (
-    <>
-      <Sidebar 
-        isOpen={isSidebarOpen} 
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)} 
-      />
-      <main className="flex-1 flex ml-24">
-        <Chat 
-          onDocumentSelect={setSelectedDocument}
-          className={`flex-1 ${selectedDocument ? 'max-w-[70%]' : 'max-w-[66%]'}`}
-        />
-        {selectedDocument && (
-          <DocumentViewer 
-            documentId={selectedDocument}
-            onClose={() => setSelectedDocument(null)}
+    <div className="flex min-h-screen bg-[#FFFCF9]">
+      <Sidebar />
+      <main className="flex flex-1 ml-24">
+        <div className={`flex-1 ${selectedDocument ? 'w-[55%]' : 'w-full'} transition-all duration-300`}>
+          <Chat 
+            onDocumentSelect={(doc) => setSelectedDocument(doc)}
           />
+        </div>
+        {selectedDocument && (
+          <div className="w-[45%] fixed right-0 top-0 h-screen border-l bg-white">
+            <DocumentViewer 
+              documentUrl={selectedDocument.url}
+              documentName={selectedDocument.name}
+              onClose={() => setSelectedDocument(null)}
+            />
+          </div>
         )}
       </main>
-    </>
+    </div>
   )
 }
-
