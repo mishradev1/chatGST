@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { X, Plus, ArrowRight, FileText } from "lucide-react"
+import { X, Plus, ArrowRight, FileText, SquarePlus, ChevronRight, Play } from "lucide-react"
 
 interface Document {
   id: string
@@ -39,7 +39,7 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string) => void }) {
   return (
     <div className="max-w-3xl mx-auto p-2 bg-[#FFFCF9]">
       <div className="relative rounded-[12px] border border-gray-200 bg-[#FFFCF9] shadow-md">
-        
+
         {/* Documents area (Scrollable but hidden scrollbar) */}
         <div className="relative px-3 pt-3">
           <div className="flex gap-2 overflow-x-auto whitespace-nowrap no-scrollbar rounded-lg p-1 px-3">
@@ -71,20 +71,20 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string) => void }) {
           </div>
 
           {/* Action buttons in a new row */}
-          <div className="flex items-center justify-between px-3 pb-2">
+          <div className="flex items-center justify-between px-4 pb-2">
             <button
               type="button"
               onClick={addDocument}
               className="flex items-center justify-center h-8 w-8 text-gray-400 hover:text-gray-600"
             >
-              <Plus className="h-5 w-5" />
+              <SquarePlus className="h-5 w-5 bg-[#FFFCF9]" />
             </button>
-            
+
             <button
               type="submit"
               className="flex items-center justify-center h-8 w-8 text-gray-400 hover:text-gray-600"
             >
-              <ArrowRight className="h-5 w-5" />
+              <Play className="w-5 h-5 text-gray-600" />
             </button>
           </div>
         </form>

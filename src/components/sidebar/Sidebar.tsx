@@ -112,7 +112,7 @@ export function Sidebar() {
   return (
     <div className="h-screen flex bg-[#efeae5]">
       {/* Slim left sidebar */}
-      <div className="fixed left-5 top-1/2 -translate-y-1/2 z-20">
+      <div className="fixed left-6 top-1/2 -translate-y-1/2 z-20">
         <div className="w-[70px] h-[37vh] bg-[#efeae5]/60 rounded-[17px] border border-gray-200 shadow-lg 
                       flex flex-col items-center justify-between py-6 px-2.5
                       transition-transform duration-200">
@@ -157,15 +157,15 @@ export function Sidebar() {
         {isExpanded && (
           <>
             <motion.div
-              initial={{ x: -240 }}
+              initial={{ x: -260 }}
               animate={{ x: 0 }}
-              exit={{ x: -240 }}
+              exit={{ x: -260 }}
               transition={{ duration: 0.2 }}
-              className="fixed left-[96px] top-0 w-[240px] h-screen bg-[#F7F2ED] border-r border-gray-200 z-10"
+              className="fixed left-[110px] top-0 w-[240px] h-screen bg-[#efeae5]/60 border-r border-gray-200 z-10"
             >
               <div className="h-full flex flex-col p-4">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-10">
                   <div className="flex items-center gap-2">
                     <img
                       src="https://cdn.prod.website-files.com/66a90e7788df6d0dc5ef83dd/66ad24b77384da410863f473_Group%2027260.svg"
@@ -182,14 +182,14 @@ export function Sidebar() {
                 </div>
 
                 {/* New Thread Button */}
-                <button className="w-full bg-[#FFFCF9] flex items-center justify-between px-3 py-2 mb-6 text-gray-700 hover:bg-gray-200 rounded-[6px]">
+                <button className="w-full bg-[#FFFCF9] flex items-center justify-between px-3 py-2 mb-12 text-gray-700 hover:bg-gray-200 rounded-[6px]">
                   <span>Add new Thread</span>
-                  <span className="text-xl">+</span>
+                  <span className="text-lg">+</span>
                 </button>
 
                 {/* Today's Threads */}
                 <div className="mb-6">
-                  <h3 className="text-sm text-gray-500 mb-2">Today</h3>
+                  <h3 className="text-[15px] text-gray-500 mb-2">Today</h3>
                   <div className="space-y-1">
                     <button className="w-full text-left px-3 py-1.5 text-gray-700 hover:bg-gray-100 rounded text-[14px]">
                       How to write an impac...
@@ -208,7 +208,7 @@ export function Sidebar() {
 
                 {/* Yesterday's Threads */}
                 <div className="mb-6">
-                  <h3 className="text-sm text-gray-500 mb-2">Yesterday</h3>
+                  <h3 className="text-[15px] text-gray-500 mb-2">Yesterday</h3>
                   <div className="space-y-1">
                     <button className="w-full text-left px-3 py-1.5 text-gray-700 hover:bg-gray-100 rounded text-[14px]">
                       How to write an impacting...
