@@ -1,23 +1,27 @@
-import * as React from "react"
-import { FileText, ExternalLink, ThumbsUp, ThumbsDown, RotateCw, Download, Book, Search, Eye, Info, MessageSquare, Copy } from "lucide-react"
-import { DocumentViewer } from "../document-viewer/DocumentViewer"
-import { ActionButtons } from "./ActionButtons"
+import * as React from "react";
+import ReactMarkdown from "react-markdown";
+import {
+    FileText, ExternalLink, Book, Info
+} from "lucide-react";
+import { DocumentViewer } from "../document-viewer/DocumentViewer";
+import { ActionButtons } from "./ActionButtons";
 
 interface Source {
-    id: string
-    name: string
-    selected?: boolean
+    id: string;
+    name: string;
+    selected?: boolean;
 }
 
 interface MessageProps {
-    type: "user" | "assistant"
-    content: string
-    sources?: Source[]
-    confidence?: number
+    type: "user" | "assistant";
+    content: string;
+    sources?: Source[];
+    confidence?: number;
 }
 
 export function Message({ type, content, sources, confidence }: MessageProps) {
-    const [selectedDocument, setSelectedDocument] = React.useState<Source | null>(null)
+    const [selectedDocument, setSelectedDocument] = React.useState<Source | null>(null);
+    const [showTooltip, setShowTooltip] = React.useState(false);
 
     if (type === "user") {
         return (
@@ -26,11 +30,11 @@ export function Message({ type, content, sources, confidence }: MessageProps) {
                     {content}
                 </p>
             </div>
-        )
+        );
     }
 
     return (
-        <div className="bg-[#FFFCF9] p-4 rounded-lg mb-4 space-y-4">
+        <div className="bg-[#FFFCF9] p-4 rounded-lg mb-4 space-y-4 h-full">
             {/* Sources Section */}
             {sources && sources.length > 0 && (
                 <div>
@@ -48,10 +52,12 @@ export function Message({ type, content, sources, confidence }: MessageProps) {
                             <div
                                 key={source.id}
                                 className={`relative flex-shrink-0 w-36 h-44 p-2 border rounded-[8px] cursor-pointer transition-all ${selectedDocument?.id === source.id
-                                    ? "border-[#D48B6C] bg-[#F7F2ED]"
-                                    : "border-gray-300 bg-[#FFFCF9]"
+                                        ? "border-[#D48B6C] bg-[#F7F2ED]"
+                                        : "border-gray-300 bg-[#FFFCF9]"
                                     }`}
-                                onClick={() => setSelectedDocument(selectedDocument?.id === source.id ? null : source)}
+                                onClick={() =>
+                                    setSelectedDocument(selectedDocument?.id === source.id ? null : source)
+                                }
                             >
                                 {selectedDocument?.id === source.id && (
                                     <div className="absolute top-2 right-2 bg-[#D48B6C] text-white w-5 h-5 flex items-center justify-center rounded-full">
@@ -81,7 +87,7 @@ export function Message({ type, content, sources, confidence }: MessageProps) {
                 </div>
             )}
 
-            {/* Message Content */}
+            {/* Message Content with Markdown Support */}
             <div className="space-y-4">
                 <div className="flex items-center gap-2">
                     <div className="h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center">
@@ -90,12 +96,27 @@ export function Message({ type, content, sources, confidence }: MessageProps) {
                     <span className="font-medium">Result</span>
                 </div>
 
-                <div className="text-gray-800">{content}</div>
+                {/* ✅ Markdown Rendering Here */}
+                <div className="text-gray-800 prose break-words whitespace-pre-wrap overflow-hidden">
+                    <ReactMarkdown>{content}</ReactMarkdown>
+                </div>
 
-                {/* Confidence Section */}
-                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#F7F2ED] text-[#9C8F7A] text-sm font-medium">
+
+                {/* Confidence Section with Tooltip */}
+                <div className="relative inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#F7F2ED] text-[#9C8F7A] text-sm font-medium">
                     Confidence {confidence}/5
-                    <Info className="h-4 w-4 text-[#9C8F7A]" />
+                    <div
+                        className="relative flex items-center"
+                        onMouseEnter={() => setShowTooltip(true)}
+                        onMouseLeave={() => setShowTooltip(false)}
+                    >
+                        <Info className="h-4 w-4 text-[#9C8F7A] cursor-pointer" />
+                        {showTooltip && (
+                            <div className="absolute left-1/2 -translate-x-1/2 bottom-9 w-72 p-2 text-sm text-[#9C8F7A] bg-[#F7F2ED] rounded-[7px] shadow-lg z-50">
+                                Confidence indicates how relevant the information is with respect to the uploaded document.
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 {/* Actions Row */}
@@ -104,5 +125,5 @@ export function Message({ type, content, sources, confidence }: MessageProps) {
                 </div>
             </div>
         </div>
-    )
+    );
 }

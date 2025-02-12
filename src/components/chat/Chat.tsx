@@ -1,92 +1,88 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { motion } from "framer-motion"
-import { ChatInput } from "@/components/chat-input/chat-input"
-import { Message } from "@/components/message/message"
+import * as React from "react";
+import { motion } from "framer-motion";
+import { ChatInput } from "@/components/chat-input/chat-input";
+import { Message } from "@/components/message/message";
 
 interface ChatMessage {
-  id: string
-  content: string
-  type: "user" | "assistant"
-  sources?: Array<{ id: string; name: string }>
-  confidence?: number
+  id: string;
+  content: string;
+  type: "user" | "assistant";
+  sources?: Array<{ id: string; name: string }>;
+  confidence?: number;
 }
 
 interface Suggestion {
-  id: string
-  text: string
+  id: string;
+  text: string;
 }
 
 export function Chat() {
-  const [messages, setMessages] = React.useState<ChatMessage[]>([])
+  const [messages, setMessages] = React.useState<ChatMessage[]>([]);
   const [suggestions, setSuggestions] = React.useState<Suggestion[]>([
     { id: "1", text: "What must be included in a legal demand notice under Section 138?" },
     { id: "2", text: "What happens if the drawer ignores the notice?" },
-  ])
+  ]);
 
-  const chatContainerRef = React.useRef<HTMLDivElement>(null)
+  const chatContainerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTo({
-        top: chatContainerRef.current.scrollHeight,
-        behavior: "smooth", // Smooth scroll
-      })
+        requestAnimationFrame(() => {
+            chatContainerRef.current.scrollTo({
+                top: chatContainerRef.current.scrollHeight,
+                behavior: "smooth",
+            });
+        });
     }
-  }, [messages]) // Scrolls when messages update
+}, [messages]); // Ensures scrolling works for every new message
+
 
   const handleSubmit = (query: string) => {
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
       content: query,
       type: "user",
-    }
-    setMessages((prev) => [...prev, newMessage])
+    };
+    setMessages((prev) => [...prev, newMessage]);
 
     // Simulate AI response
     setTimeout(() => {
       const response: ChatMessage = {
         id: (Date.now() + 1).toString(),
         content: `
-          <strong>Legal Remedies for Cheque Dishonor (Section 138 of the Negotiable Instruments Act, 1881):</strong>
-          <ol>
-            <li>
-              <strong>Filing a Criminal Complaint</strong> - The payee can initiate criminal proceedings against the drawer for dishonoring a cheque due to insufficient funds or exceeding the arrangement.
-            </li>
-            <li>
-              <strong>Procedure:</strong>
-              <ul>
-                <li>a. The payee must send a demand notice to the drawer within 30 days of receiving the cheque return memo from the bank, demanding payment of the cheque amount (Section 138(b)).</li>
-                <li>b. The drawer has 15 days from the receipt of the notice to make the payment.</li>
-              </ul>
-            </li>
-          </ol>
+# **Legal Remedies for Cheque Dishonor (Section 138 of the Negotiable Instruments Act, 1881)**
+
+The dishonor of a cheque is a serious financial offense in India, governed by **Section 138 of the Negotiable Instruments Act, 1881**. When a cheque is returned unpaid due to reasons such as **insufficient funds** or **exceeding the arrangement**, the payee has legal remedies available under both civil and criminal law. Section 138 prescribes criminal liability for the drawer if the dishonored cheque is issued for the discharge of a legally enforceable debt or liability.
+
+## **1. Filing a Criminal Complaint**
+One of the primary legal remedies available to the payee is to **initiate criminal proceedings** against the drawer. This provision ensures accountability and discourages fraudulent financial transactions. A conviction under Section 138 can lead to **imprisonment for up to two years, a monetary fine (which may extend to twice the cheque amount), or both**.
+
+## **Conclusion**
+Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal remedy for cheque dishonor. By following the correct legal procedure—sending a demand notice, allowing the prescribed waiting period, and filing a timely complaint—the payee can seek justice and financial recovery. The law acts as a deterrent, ensuring the credibility of cheques in financial transactions.
+
         `,
         type: "assistant",
         sources: [
-          { id: "1", name: "Securities and Exchange board of India.pdf" },
-          { id: "2", name: "Bank regulation 2024-2025.pdf" },
-          { id: "3", name: "Bank regulation 2024-2025.pdf" },
-          { id: "4", name: "Bank regulation 2024-2025.pdf" },
-          { id: "5", name: "Bank regulation 2024-2025.pdf" },
-          { id: "6", name: "Bank regulation 2024-2025.pdf" },
+          { id: "1", name: "Securities and Exchange Board of India.pdf" },
+          { id: "2", name: "Bank Regulation 2024-2025.pdf" },
         ],
         confidence: 5,
-      }      
-      setMessages((prev) => [...prev, response])
-    }, 1000)
-  }
+      };
+      setMessages((prev) => [...prev, response]);
+    }, 1000);
+  };
+
 
   return (
-    <div className="ml-60 h-full p-12 bg-[#FFFCF9] flex flex-col">
+    <div className="ml-60 p-12 bg-[#FFFCF9] flex flex-col h-full">
       <div className="max-w-3xl mx-auto flex flex-col flex-grow space-y-4">
-        {/* Chat messages container with smooth motion scrolling */}
+        {/* Chat messages container */}
         <motion.div
           ref={chatContainerRef}
-          className="flex-grow min-h-[400px] max-h-[600px] overflow-y-auto space-y-4 no-scrollbar"
-          animate={{ scrollTop: chatContainerRef.current?.scrollHeight || 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="flex-grow min-h-[50%] max-h-[80%] overflow-y-auto space-y-4 no-scrollbar"
+          style={{paddingBottom: "10px", wordBreak: "break-word", whiteSpace: "pre-wrap", overflowAnchor: "auto" }}
         >
           {messages.map((message) => (
             <Message
@@ -118,5 +114,5 @@ export function Chat() {
         <ChatInput onSubmit={handleSubmit} />
       </div>
     </div>
-  )
+  );
 }
