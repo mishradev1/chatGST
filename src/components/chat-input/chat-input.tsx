@@ -37,7 +37,7 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string) => void }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-2">
+    <div className="max-w-3xl mx-auto p-2 bg-[#FFFCF9]">
       <div className="relative rounded-[12px] border border-gray-200 bg-[#FFFCF9] shadow-md">
         
         {/* Documents area (Scrollable but hidden scrollbar) */}
@@ -46,7 +46,7 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string) => void }) {
             {documents.map((doc) => (
               <div
                 key={doc.id}
-                className="flex items-center gap-2 px-2 py-2 text-sm text-gray-600 bg-gray-100 rounded-[6px]"
+                className="flex items-center gap-2 px-2 py-2 text-sm text-gray-600 bg-[#F7F2ED] rounded-[6px]"
               >
                 <FileText className="h-4 w-4 text-gray-400" />
                 {doc.name}
@@ -66,7 +66,7 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string) => void }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Type your query here..."
-              className="flex-1 outline-none text-gray-800 placeholder-gray-400 py-2 px-3 rounded-lg"
+              className="flex-1 outline-none text-gray-800 placeholder-gray-400 bg-[#FFFCF9] py-2 px-3 rounded-lg"
             />
           </div>
 

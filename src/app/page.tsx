@@ -14,12 +14,11 @@ export default function Home() {
   } | null>(null)
 
   return (
-    <div className="flex min-h-screen bg-[#FFFCF9]">
+    <div className="flex h-full bg-[#FFFCF9]">
       <Sidebar />
       <main className="flex flex-1 ml-24">
         <div className={`flex-1 ${selectedDocument ? 'w-[55%]' : 'w-full'} transition-all duration-300`}>
           <Chat 
-            onDocumentSelect={(doc) => setSelectedDocument(doc)}
           />
         </div>
         {selectedDocument && (

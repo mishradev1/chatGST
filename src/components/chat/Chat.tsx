@@ -105,7 +105,7 @@ export function Chat() {
             <button
               key={suggestion.id}
               onClick={() => handleSubmit(suggestion.text)}
-              className="bg-gray-100/80 hover:bg-gray-200/80 rounded-full px-4 py-2 text-sm text-gray-800"
+              className="bg-[#F7F2ED] hover:bg-gray-200/80 rounded-[10px] px-4 py-2 text-[15px] text-gray-800"
             >
               {suggestion.text}
             </button>
