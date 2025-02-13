@@ -11,7 +11,7 @@ export function Sidebar() {
     <div className="h-screen flex bg-[#efeae5]">
       {/* Slim left sidebar - Hidden when expanded */}
       {!isExpanded && (
-        <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30">
+        <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden md:block">
           <div className="w-[70px] h-[37vh] bg-[#efeae5]/60 rounded-[17px] border border-gray-200 shadow-lg 
                         flex flex-col items-center justify-between py-6 px-2.5
                         transition-transform duration-200">
@@ -60,7 +60,7 @@ export function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: -260 }}
               transition={{ duration: 0.2 }}
-              className="fixed left-0 top-0 w-[280px] h-screen bg-[#efeae5]/60 border-r border-gray-200 z-50"
+              className="fixed left-0 top-0 w-[280px] h-screen border-r bg-[#efeae5]/90 border-gray-200 z-50"
             >
               <div className="h-full flex flex-col p-4">
                 {/* Header */}

@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { ArrowLeft, Search, Download, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,20 +7,22 @@ interface DocumentViewerProps {
   documentUrl?: string
   documentName?: string
   onClose?: () => void
+  isOpen: boolean
 }
 
-export function DocumentViewer({ documentUrl, documentName, onClose }: DocumentViewerProps) {
+export function DocumentViewer({ documentUrl, documentName, onClose, isOpen }: DocumentViewerProps) {
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState("")
 
   const handleDownload = async () => {
+    if (!documentUrl) return
     try {
-      const response = await fetch(documentUrl || "")
+      const response = await fetch(documentUrl)
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement("a")
       link.href = url
-      link.download = documentName || "document.pdf"
+      link.download = documentName ?? "document.pdf"
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
@@ -33,14 +33,20 @@ export function DocumentViewer({ documentUrl, documentName, onClose }: DocumentV
   }
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
+    <div
+      className={`fixed top-0 h-screen bg-white shadow-lg transition-transform duration-300 transform 
+        ${isOpen ? "right-0 w-[40%]" : "right-[-620px]"} 
+        max-w-full z-50`}
+    >
       {/* Header */}
-      <div className="flex items-center justify-between p-2 border-b">
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="h-8 w-8">
+      <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onClose}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <span className="text-sm text-gray-600 truncate max-w-[300px]">{documentName || "Document"}</span>
+          <span className="text-sm font-medium text-gray-700 truncate max-w-[300px]">
+            {documentName ?? "Document"}
+          </span>
         </div>
         <div className="flex items-center gap-2">
           {isSearchOpen ? (
@@ -49,8 +55,8 @@ export function DocumentViewer({ documentUrl, documentName, onClose }: DocumentV
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
-                className="h-8 w-40"
+                placeholder="Search in document..."
+                className="h-8 w-48"
               />
               <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsSearchOpen(false)}>
                 <X className="h-4 w-4" />
@@ -73,14 +79,17 @@ export function DocumentViewer({ documentUrl, documentName, onClose }: DocumentV
       </div>
 
       {/* Document Content */}
-      <div className="flex-1 overflow-auto p-4">
+      <div className="h-[calc(100vh-64px)] flex items-center justify-center bg-gray-50">
         {documentUrl ? (
-          <iframe src={documentUrl} className="w-full h-full border-0" title={documentName || "Document Viewer"} />
+          <iframe 
+            src={documentUrl} 
+            className="w-full h-full border-0" 
+            title={documentName ?? "Document Viewer"} 
+          />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-500">No document selected</div>
+          <div className="text-gray-500">No document selected</div>
         )}
       </div>
     </div>
   )
 }
-

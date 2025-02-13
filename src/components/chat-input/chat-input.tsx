@@ -6,7 +6,7 @@ import { X, FileText, SquarePlus, SendHorizonal } from "lucide-react";
 interface Document {
   id: string;
   name: string;
-  file: File;
+  file?: File;
 }
 
 export function ChatInput({ onSubmit }: { onSubmit: (query: string, documents: Document[]) => void }) {
@@ -41,6 +41,8 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string, documents: D
       setDocuments([]);
     }
   };
+
+  const isSubmitDisabled = query.trim().length === 0 && documents.length === 0;
 
   return (
     <div className="max-w-3xl mx-auto p-2 bg-[#FFFCF9]">
@@ -91,9 +93,14 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string, documents: D
 
             <button
               type="submit"
-              className="p-2 px-4 rounded-[8px] bg-[#F7F2ED] hover:bg-[#EAE0D5] transition-all"
+              className={`p-2 px-4 rounded-[8px] transition-all ${
+                isSubmitDisabled
+                  ? "bg-gray-300 cursor-not-allowed text-gray-500"
+                  : "bg-[#F7F2ED] hover:bg-[#EAE0D5] text-[#9C8F7A]"
+              }`}
+              disabled={isSubmitDisabled}
             >
-              <SendHorizonal className="w-5 h-5 text-[#9C8F7A] " />
+              <SendHorizonal className="w-5 h-5" />
             </button>
           </div>
         </form>

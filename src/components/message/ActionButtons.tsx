@@ -1,8 +1,16 @@
 import { useState } from "react";
-import { MessageSquare, Eye, ThumbsUp, ThumbsDown, RotateCw, Copy, Download } from "lucide-react";
+import { MessageSquare, Eye, ThumbsUp, ThumbsDown, RotateCw, Copy, Download, Check } from "lucide-react";
 
 export function ActionButtons() {
     const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText("Sample text to copy").then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1200); 
+        });
+    };
 
     return (
         <div className="flex items-center justify-between w-full mt-3">
@@ -41,12 +49,23 @@ export function ActionButtons() {
                     <ThumbsDown className="h-4 w-4" />
                 </button>
 
-                {/* Other Action Buttons */}
-                {[RotateCw, Copy, Download].map((Icon, index) => (
-                    <button key={index} className="p-2 rounded-md bg-[#F7F2ED] hover:bg-[#EAE0D5] transition-all">
-                        <Icon className="h-4 w-4 text-[#9C8F7A]" />
-                    </button>
-                ))}
+                {/* Refresh Button */}
+                <button className="p-2 rounded-md bg-[#F7F2ED] hover:bg-[#EAE0D5] transition-all">
+                    <RotateCw className="h-4 w-4 text-[#9C8F7A]" />
+                </button>
+
+                {/* Copy Button with Animation */}
+                <button
+                    className="p-2 rounded-md bg-[#F7F2ED] hover:bg-[#EAE0D5] transition-all"
+                    onClick={handleCopy}
+                >
+                    {copied ? <Check className="h-4 w-4 text-[#9C8F7A]" /> : <Copy className="h-4 w-4 text-[#9C8F7A]" />}
+                </button>
+
+                {/* Download Button */}
+                <button className="p-2 rounded-md bg-[#F7F2ED] hover:bg-[#EAE0D5] transition-all">
+                    <Download className="h-4 w-4 text-[#9C8F7A]" />
+                </button>
             </div>
         </div>
     );

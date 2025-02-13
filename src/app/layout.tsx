@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <div className="flex h-screen bg-[#FFFCF9]">{children}</div>
+        <div className="">{children}</div>
       </body>
     </html>
   );
