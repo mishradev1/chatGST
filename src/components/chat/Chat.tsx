@@ -40,7 +40,7 @@ export function Chat() {
     }
   }, [messages]);
 
-  const handleSubmit = (query: string) => {
+  const handleSubmit = React.useCallback((query: string) => {
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
       content: query,
@@ -67,25 +67,21 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
         sources: [
           { id: "1", name: "Securities and Exchange board of India.pdf" },
           { id: "2", name: "Bank regulation 2024-2025.pdf" },
-          { id: "3", name: "Bank regulation 2024-2025.pdf" },
+          { id: "3", name: "Securities and Exchange board of India.pdf" },
           { id: "4", name: "Bank regulation 2024-2025.pdf" },
-          { id: "5", name: "Bank regulation 2024-2025.pdf" },
+          { id: "5", name: "Securities and Exchange board of India.pdf" },
           { id: "6", name: "Bank regulation 2024-2025.pdf" },
         ],
         confidence: 5,
       };
       setMessages((prev) => [...prev, response]);
     }, 1000);
-  };
+  },[]);
 
-  const handleDocumentViewerOpen = (isOpen: boolean, documentName?: string) => {
-    setIsDocumentOpen(isOpen)
-    if (isOpen && documentName) {
-      setSelectedDocument(documentName)
-    } else {
-      setSelectedDocument(null)
-    }
-  }
+  const handleDocumentViewerOpen = React.useCallback((isOpen: boolean, documentName?: string) => {
+    setIsDocumentOpen(isOpen);
+    setSelectedDocument(isOpen ? documentName ?? null : null);
+  }, []);
 
 
   return (
@@ -105,8 +101,6 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
           <motion.div
             ref={chatContainerRef}
             className="flex-grow min-h-[400px] max-h-[600px] overflow-y-auto space-y-4 no-scrollbar"
-            animate={{ y: chatContainerRef.current?.scrollHeight ?? 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
             style={{
               paddingBottom: "10px",
               wordBreak: "break-word",
