@@ -81,8 +81,13 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
 
   const handleDocumentViewerOpen = React.useCallback((isOpen: boolean, documentName?: string) => {
     setIsDocumentOpen(isOpen);
-    setSelectedDocument(isOpen ? documentName ?? null : null);
+    if (isOpen && documentName) {
+      setSelectedDocument(`/docss/${documentName}`);
+    } else {
+      setSelectedDocument(null);
+    }
   }, []);
+  
 
 
   return (
@@ -158,7 +163,7 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <DocumentViewer
-              documentName={selectedDocument}
+              documentName={selectedDocument} 
               onClose={() => handleDocumentViewerOpen(false)} isOpen={false}      />
     </motion.div>
   )}

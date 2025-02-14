@@ -71,7 +71,9 @@ export function Message({ type, content, sources, confidence, onDocumentViewerOp
                                         ? "border-[#D48B6C] bg-[#F7F2ED]"
                                         : "border-gray-300 bg-[#FFFCF9]"
                                         }`}
-                                    onClick={() => handleDocumentClick(source)}
+                                    onClick={() => {
+                                            handleDocumentClick(source);
+                                        }}
                                 >
                                     {selectedDocument?.id === source.id && (
                                         <div className="absolute top-2 right-2 bg-[#D48B6C] text-white w-5 h-5 flex items-center justify-center rounded-full">
@@ -132,8 +134,8 @@ export function Message({ type, content, sources, confidence, onDocumentViewerOp
             {
                 selectedDocument && (
                     <DocumentViewer
-                        documentUrl={`/api/documents/${selectedDocument.id}`}
-                        documentName={selectedDocument.name}
+                    documentUrl={`/docs/${selectedDocument.id}.pdf`}
+                    documentName={selectedDocument.name}
                         onClose={() => {
                             setSelectedDocument(null)
                             setIsDocumentOpen(false)
