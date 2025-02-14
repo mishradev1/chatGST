@@ -126,7 +126,7 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
               <button
                 key={suggestion.id}
                 onClick={() => handleSubmit(suggestion.text)}
-                className="bg-[#F7F2ED] hover:bg-gray-200/80 rounded-[10px] px-4 py-2 text-[15px] text-gray-800"
+                className="bg-[#F7F2ED] hover:bg-gray-200/80 rounded-[10px] px-4 py-2 text-right text-[15px] text-gray-800"
               >
                 {suggestion.text}
               </button>

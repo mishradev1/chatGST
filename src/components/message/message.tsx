@@ -50,7 +50,7 @@ export function Message({ type, content, sources, confidence, onDocumentViewerOp
 
     return (
         <>
-            <div className="bg-[#FFFCF9] p-4 rounded-lg mb-2 space-y-4">
+            <div className="bg-[#FFFCF9] p-4 w-screen md:w-full rounded-lg mb-2 space-y-4">
                 {/* Sources Section */}
                 {sources && sources.length > 0 && (
                     <div>
