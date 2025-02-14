@@ -14,7 +14,6 @@ export function ActionButtons() {
 
     return (
         <div className="flex items-center justify-between w-full mt-2">
-            {/* Left Side: Ask Sources & Visualize */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F7F2ED] text-[#9C8F7A] md:text-sm text-[11px] font-medium">
                 <button className="flex items-center gap-1">
                     <MessageSquare className="h-4 w-4 text-[#9C8F7A]" />
@@ -27,7 +26,6 @@ export function ActionButtons() {
                 </button>
             </div>
 
-            {/* Right Side: Action Icons */}
             <div className="flex items-center gap-2">
                 {/* Thumbs Up Button */}
                 <button
