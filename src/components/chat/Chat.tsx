@@ -6,6 +6,7 @@ import { ChatInput } from "@/components/chat-input/chat-input";
 import { Message } from "@/components/message/message";
 import { DocumentViewer } from "../document-viewer/DocumentViewer";
 
+
 interface ChatMessage {
   id: string;
   content: string;
@@ -88,12 +89,18 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
     
   <motion.div
     className="flex justify-center items-center w-full"
-    animate={{
-      marginLeft: isDocumentOpen ? "-500px" : "0px",
-      width: isDocumentOpen ? "92%" : "100%"
-    }}
-    transition={{ duration: 0.3, ease: "easeInOut" }}
-  >
+    animate={
+      typeof window !== "undefined" && window.innerWidth >= 1024 // Large screens (lg)
+        ? { marginLeft: isDocumentOpen ? "-500px" : "0px", width: isDocumentOpen ? "92%" : "100%" }
+        : {}
+    }
+    transition={typeof window !== "undefined" && window.innerWidth >= 1024 ? { duration: 0.3, ease: "easeInOut" } : {}}
+    // animate={{
+    //   marginLeft: isDocumentOpen ? "-500px" : "0px",
+    //   width: isDocumentOpen ? "92%" : "100%"
+    // }}
+    // transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
     <div className="p-8 pr-2 pb-4 pt-12 bg-[#FFFCF9] flex flex-col h-screen">
       <div className="max-w-3xl mx-auto flex flex-col h-full flex-grow space-y-2">
         {/* Messages and suggestions wrapped together */}
@@ -126,7 +133,7 @@ Section 138 of the **Negotiable Instruments Act, 1881**, provides a strong legal
               <button
                 key={suggestion.id}
                 onClick={() => handleSubmit(suggestion.text)}
-                className="bg-[#F7F2ED] hover:bg-gray-200/80 rounded-[10px] px-4 py-2 text-right text-[15px] text-gray-800"
+                className="bg-[#F7F2ED] hover:bg-gray-200/80 rounded-[10px] md:px-4 md:py-2 px-3 py-2 text-right md:text-[15px] text-[13.5px] text-gray-800"
               >
                 {suggestion.text}
               </button>

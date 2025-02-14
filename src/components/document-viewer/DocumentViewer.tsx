@@ -34,7 +34,7 @@ export function DocumentViewer({ documentUrl, documentName, onClose, isOpen }: D
 
   return (
     <div
-      className={`fixed top-0 h-screen bg-white shadow-lg transition-transform duration-300 transform 
+      className={`fixed top-0 h-screen bg-white shadow-lg transition-transform duration-300 transform hidden md:block
         ${isOpen ? "right-0 w-[40%]" : "right-[-620px]"} 
         max-w-full z-50`}
     >

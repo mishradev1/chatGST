@@ -41,7 +41,7 @@ export function Message({ type, content, sources, confidence, onDocumentViewerOp
     if (type === "user") {
         return (
             <div className="flex justify-end mb-4">
-                <p className="bg-[#F7F2ED] rounded-[8px] px-4 py-2 text-[15.5px] text-gray-800/90 inline-block">
+                <p className="bg-[#F7F2ED] rounded-[8px] text-right px-4 ml-10 py-2 md:text-[15.5px] text-[14px] text-gray-800/90 inline-block">
                     {content}
                 </p>
             </div>
@@ -107,7 +107,7 @@ export function Message({ type, content, sources, confidence, onDocumentViewerOp
 
 
                     {/* Confidence Section with Tooltip */}
-                    <div className="relative inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#F7F2ED] text-[#9C8F7A] text-sm font-medium">
+                    <div className="relative inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#F7F2ED] text-[#9C8F7A] md:text-sm text-[12px] font-medium">
                         Confidence {confidence}/5
                         <div
                             className="relative flex items-center"

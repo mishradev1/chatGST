@@ -38,7 +38,6 @@ export function ChatInput({ onSubmit }: { onSubmit: (query: string, documents: D
     if (query.trim() || documents.length > 0) {
       onSubmit(query, documents);
       setQuery("");
-      setDocuments([]);
     }
   };
 

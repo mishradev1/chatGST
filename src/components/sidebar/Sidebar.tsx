@@ -1,14 +1,23 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bell, PanelLeft } from 'lucide-react'
+import { Bell, Menu, PanelLeft } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="h-screen flex bg-[#efeae5]">
+    <div className="flex w-screen">
+      {/* Mobile hamburger menu */}
+      <button 
+        onClick={() => setIsExpanded(true)}
+        className="fixed top-4 left-4 z-30 md:hidden"
+      >
+        <Menu className="w-7 h-7 text-gray-600" />
+      </button>
+
       {/* Slim left sidebar - Hidden when expanded */}
       {!isExpanded && (
         <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden md:block">
@@ -60,15 +69,17 @@ export function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: -260 }}
               transition={{ duration: 0.2 }}
-              className="fixed left-0 top-0 w-[280px] h-screen border-r bg-[#efeae5]/90 border-gray-200 z-50"
+              className="fixed left-0 top-0 w-[280px] h-full border-r bg-[#efeae5]/90 border-gray-200 z-50"
             >
               <div className="h-full flex flex-col p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-10">
                   <div className="flex items-center gap-2">
-                    <img
+                    <Image
                       src="https://cdn.prod.website-files.com/66a90e7788df6d0dc5ef83dd/66ad24b77384da410863f473_Group%2027260.svg"
                       alt="ChatGST Logo"
+                      width={36}
+                      height={36}
                       className="w-10 h-10"
                     />
                     <span className="text-lg font-medium text-gray-800">ChatGST</span>
